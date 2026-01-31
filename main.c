@@ -30,6 +30,12 @@ SOFTWARE.
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
 
+/// SETTINGS
+// Whether to only use Left, Right and Down for everything
+static bool tkey = false;
+// Whether to show help for tkey mode
+static bool thelp = true;
+
 // Size of the screen
 static int screenWidth = 500;
 static int screenHeight = 500;
@@ -106,16 +112,34 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
     }
 	else if (event->type == SDL_EVENT_KEY_DOWN) {
-		if (event->key.key == SDLK_LEFT)
-			splitScreen(LEFT);
-		else if (event->key.key == SDLK_RIGHT)
-			splitScreen(RIGHT);	
-		if (event->key.key == SDLK_UP)
-			splitScreen(UP);
-		else if (event->key.key == SDLK_DOWN)
+		if (tkey) {
+			// Three key setup
+			if (splits % 2 == 0) {
+				if (event->key.key == SDLK_LEFT)
+					splitScreen(LEFT);
+				else if (event->key.key == SDLK_RIGHT)
+					splitScreen(RIGHT);
+			} else {
+				if (event->key.key == SDLK_LEFT)
+					splitScreen(UP);
+				else if (event->key.key == SDLK_RIGHT)
+					splitScreen(DOWN);				
+			}
+		} else {
+			// Normal setup
+			if (event->key.key == SDLK_LEFT)
+				splitScreen(LEFT);
+			else if (event->key.key == SDLK_RIGHT)
+				splitScreen(RIGHT);	
+			if (event->key.key == SDLK_UP)
+				splitScreen(UP);
+			else if (event->key.key == SDLK_DOWN)
 			splitScreen(DOWN);
-		else if (event->key.key == SDLK_ESCAPE ||
-				 event->key.key == SDLK_RETURN) {
+		}
+		// Exit
+		if (event->key.key == SDLK_ESCAPE ||
+			event->key.key == SDLK_RETURN ||
+			(event->key.key == SDLK_DOWN && tkey)) {
 			return SDL_APP_SUCCESS;
 		}
 	}
@@ -138,7 +162,29 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 	SDL_RenderFillRect(renderer, &rect);
 	// Border
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 200);
-	SDL_RenderRect(renderer, &rect);	
+	SDL_RenderRect(renderer, &rect);
+	// Render three key mode helpers
+	if (tkey && thelp && splits < 10) {
+		const int scale = 10 - splits;
+		const int cw = SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE;
+		SDL_SetRenderScale(renderer, scale, scale);
+		if (splits % 2 == 0) {
+			SDL_RenderDebugText(renderer,
+								(bx+cw) / scale,
+								(by + (bh/2)) / scale, "L");
+			SDL_RenderDebugText(renderer,
+								(bx+bw-(cw*scale)) / scale,
+								(by + (bh/2)) / scale, "R");
+		} else {
+			SDL_RenderDebugText(renderer,
+								(bx + (bw/2)) / scale,
+								(by + cw) / scale, "L");
+			SDL_RenderDebugText(renderer,
+								(bx + (bw/2)) / scale,
+								(by+bh-(cw*scale)) / scale, "R");
+		}
+		SDL_SetRenderScale(renderer, 1, 1);
+	}
 	// Move mouse to center of box
 	SDL_WarpMouseInWindow(window, (bw/2) + bx, (bh/2) + by);
 	//
