@@ -12,15 +12,15 @@ Use arrow keys to split the screen horizontally or vertically in a specified
 direction, and press ENTER or ESCAPE to close the program.
 
 In three key mode, use LEFT and RIGHT to split the window, according to the help
-messages (if enabled), and use DOWN to close the program. ESCASE and ENTER are
+messages (if enabled), and use DOWN to close the program. ESCAPE and ENTER are
 still available in three key mode.
 
 The program should automatically capture input.
 
 ## Setting up
 
-The program is designed to be opened when needed, and closed immediately,
-possibly many times in a short duration.
+The program is designed to be opened when needed, and closed immediately after
+done, possibly many times in a short period.
 
 Three key mode and it's associated help option can be enabled/disabled by
 changing the variables and recompiling. A dotfile configuration will probably be
@@ -37,6 +37,7 @@ bindsym Shift+Right exec --no-startup-id wisdomkey r
 bindsym Shift+Up exec --no-startup-id wisdomkey u
 bindsym Shift+Down exec --no-startup-id wisdomkey d
 ```
+(not sure if --no-startup-id should or should not be there)
 
 ## Building
 
