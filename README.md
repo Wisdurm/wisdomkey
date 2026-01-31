@@ -4,6 +4,8 @@ Small accessibility program for quickly moving the mouse to a desired position
 on the screen, using only the arrow keys and ESC/RET, optionally even using only
 three keys.
 
+[Showcase](https://github.com/user-attachments/assets/0abb010f-fa28-4374-b017-e6eb7f3b5dd0)
+
 ## Usage
 
 Use arrow keys to split the screen horizontally or vertically in a specified
