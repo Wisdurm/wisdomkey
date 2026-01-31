@@ -1,5 +1,27 @@
 /*
-  Licensed under CC0-1.0; do whatever you want
+  
+MIT License
+
+Copyright (c) 2026 Wisdurm
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 */
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
@@ -34,7 +56,7 @@ void splitScreen(enum Direction direction);
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
     /* Create the window */
-    if (!SDL_CreateWindowAndRenderer("Hello World", 500, 500,
+    if (!SDL_CreateWindowAndRenderer("wisdomkey", 500, 500,
 									 SDL_WINDOW_MAXIMIZED | SDL_WINDOW_TRANSPARENT |
 									 SDL_WINDOW_ALWAYS_ON_TOP | SDL_WINDOW_UTILITY |
 									 SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_FOCUS,
